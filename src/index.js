@@ -304,9 +304,7 @@ function Swipe(container, options) {
         } else if (continuous_end) {
           delta.x =
             delta.x /
-            (!index &&
-            delta.x > 0 && // if first slide and sliding left
-            delta.x < 0 // and if sliding at all
+            (!index && delta.x > 0 // if first slide and sliding left
               ? Math.abs(delta.x) / width + 1 // determine resistance level
               : 1); // no resistance if false
 
