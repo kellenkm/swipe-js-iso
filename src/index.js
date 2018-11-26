@@ -302,7 +302,7 @@ function Swipe(container, options) {
             0
           );
         } else if (continuous_end) {
-          console.log('continuous_end');
+          console.log('continuous_end', index);
 
           delta.x =
             delta.x /
@@ -392,12 +392,10 @@ function Swipe(container, options) {
 
           options.callback && options.callback(index, slides[index]);
         } else {
-          if (continuous) {
+          if (continuous || continuous_end) {
             move(circle(index - 1), -width, speed);
             move(index, 0, speed);
             move(circle(index + 1), width, speed);
-          } else if (continuous_end) {
-            // do nothing
           } else {
             move(index - 1, -width, speed);
             move(index, 0, speed);
