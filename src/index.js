@@ -360,7 +360,7 @@ function Swipe(container, options) {
       if (!isScrolling) {
         if (isValidSlide && !isPastBounds) {
           if (direction) {
-            if (continuous || continuous_end) {
+            if (continuous) {
               // we need to get the next in this direction in place
 
               move(circle(index - 1), -width, 0);
