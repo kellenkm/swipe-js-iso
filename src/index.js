@@ -366,7 +366,7 @@ function Swipe(container, options) {
       if (!isScrolling) {
         if (isValidSlide && !isPastBounds) {
           if (direction) {
-            if (continuous || continuous_end) {
+            if (continuous) {
               // we need to get the next in this direction in place
 
               move(circle(index - 1), -width, 0);
@@ -379,7 +379,7 @@ function Swipe(container, options) {
             move(circle(index + 1), slidePos[circle(index + 1)] - width, speed);
             index = circle(index + 1);
           } else {
-            if (continuous) {
+            if (continuous || continuous_end) {
               // we need to get the next in this direction in place
 
               move(circle(index + 1), width, 0);
