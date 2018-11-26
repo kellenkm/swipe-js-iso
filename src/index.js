@@ -34,7 +34,7 @@ function Swipe(container, options) {
   var continuous = (options.continuous =
     options.continuous !== undefined ? options.continuous : true);
   var continuous_end = (options.continuous_end =
-    options.continuous_end !== undefined ? options.continuous_end : true);
+    options.continuous_end !== undefined ? options.continuous_end : false);
 
   function setup() {
     // cache slides
