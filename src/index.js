@@ -194,8 +194,6 @@ function Swipe(container, options) {
   var interval;
 
   function begin() {
-    alert('test');
-
     clearTimeout(interval);
     interval = setTimeout(next, delay);
   }
@@ -304,7 +302,7 @@ function Swipe(container, options) {
             0
           );
         } else if (continuous_end) {
-          alert('continuous_end');
+          console.log('continuous_end');
 
           delta.x =
             delta.x /
