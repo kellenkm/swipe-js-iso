@@ -301,26 +301,21 @@ function Swipe(container, options) {
             delta.x + slidePos[circle(index + 1)],
             0
           );
-        } else if (continuous_end) {
-          if (!index && delta.x > 0) {
-            delta.x = delta.x / (Math.abs(delta.x) / width + 1);
+          // } else if (continuous_end) {
 
-            translate(index - 1, delta.x + slidePos[index - 1], 0);
-            translate(index, delta.x + slidePos[index], 0);
-            translate(index + 1, delta.x + slidePos[index + 1], 0);
-          } else {
-            translate(
-              circle(index - 1),
-              delta.x + slidePos[circle(index - 1)],
-              0
-            );
-            translate(index, delta.x + slidePos[index], 0);
-            translate(
-              circle(index + 1),
-              delta.x + slidePos[circle(index + 1)],
-              0
-            );
-          }
+          //   delta.x = delta.x / (!index && delta.x > 0 ? Math.abs(delta.x) / width + 1 : 1);
+
+          //   translate(
+          //     circle(index - 1),
+          //     delta.x + slidePos[circle(index - 1)],
+          //     0
+          //   );
+          //   translate(index, delta.x + slidePos[index], 0);
+          //   translate(
+          //     circle(index + 1),
+          //     delta.x + slidePos[circle(index + 1)],
+          //     0
+          //   );
         } else {
           delta.x =
             delta.x /
