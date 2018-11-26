@@ -389,7 +389,7 @@ function Swipe(container, options) {
 
           options.callback && options.callback(index, slides[index]);
         } else {
-          if (continuous || continuous_end) {
+          if (continuous) {
             move(circle(index - 1), -width, speed);
             move(index, 0, speed);
             move(circle(index + 1), width, speed);
