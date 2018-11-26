@@ -33,6 +33,8 @@ function Swipe(container, options) {
   var speed = options.speed || 300;
   var continuous = (options.continuous =
     options.continuous !== undefined ? options.continuous : true);
+  var continuous_end = (options.continuous_end =
+    options.continuous_end !== undefined ? options.continuous_end : true);
 
   function setup() {
     // cache slides
@@ -67,7 +69,7 @@ function Swipe(container, options) {
     }
 
     // reposition elements before and after index
-    if (continuous && browser.transitions) {
+    if ((continuous || continuous_end) && browser.transitions) {
       move(circle(index - 1), -width, 0);
       move(circle(index + 1), width, 0);
     }
@@ -83,7 +85,7 @@ function Swipe(container, options) {
   }
 
   function next() {
-    if (continuous) slide(index + 1);
+    if (continuous || continuous_end) slide(index + 1);
     else if (index < slides.length - 1) slide(index + 1);
   }
 
@@ -100,7 +102,7 @@ function Swipe(container, options) {
       var direction = Math.abs(index - to) / (index - to); // 1: backward, -1: forward
 
       // get the actual position of the slide
-      if (continuous) {
+      if (continuous || continuous_end) {
         var natural_direction = direction;
         direction = -slidePos[circle(to)] / width;
 
@@ -125,7 +127,8 @@ function Swipe(container, options) {
       move(index, width * direction, slideSpeed || speed);
       move(to, 0, slideSpeed || speed);
 
-      if (continuous) move(circle(to - direction), -(width * direction), 0); // we need to get the next in place
+      if (continuous || continuous_end)
+        move(circle(to - direction), -(width * direction), 0); // we need to get the next in place
     } else {
       to = circle(to);
       animate(index * -width, to * -width, slideSpeed || speed);
@@ -298,6 +301,27 @@ function Swipe(container, options) {
             delta.x + slidePos[circle(index + 1)],
             0
           );
+        } else if (continuous_end) {
+          delta.x =
+            delta.x /
+            (!index &&
+            delta.x > 0 && // if first slide and sliding left
+            delta.x < 0 // and if sliding at all
+              ? Math.abs(delta.x) / width + 1 // determine resistance level
+              : 1); // no resistance if false
+
+          // translate 1:1
+          translate(
+            circle(index - 1),
+            delta.x + slidePos[circle(index - 1)],
+            0
+          );
+          translate(index, delta.x + slidePos[index], 0);
+          translate(
+            circle(index + 1),
+            delta.x + slidePos[circle(index + 1)],
+            0
+          );
         } else {
           delta.x =
             delta.x /
@@ -330,7 +354,7 @@ function Swipe(container, options) {
         (!index && delta.x > 0) || // if first slide and slide amt is greater than 0
         (index == slides.length - 1 && delta.x < 0); // or if last slide and slide amt is less than 0
 
-      if (continuous) isPastBounds = false;
+      if (continuous || continuous_end) isPastBounds = false;
 
       // determine direction of swipe (true:right, false:left)
       var direction = delta.x < 0;
@@ -339,7 +363,7 @@ function Swipe(container, options) {
       if (!isScrolling) {
         if (isValidSlide && !isPastBounds) {
           if (direction) {
-            if (continuous) {
+            if (continuous || continuous_end) {
               // we need to get the next in this direction in place
 
               move(circle(index - 1), -width, 0);
@@ -368,7 +392,7 @@ function Swipe(container, options) {
 
           options.callback && options.callback(index, slides[index]);
         } else {
-          if (continuous) {
+          if (continuous || continuous_end) {
             move(circle(index - 1), -width, speed);
             move(index, 0, speed);
             move(circle(index + 1), width, speed);
