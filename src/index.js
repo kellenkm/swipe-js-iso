@@ -303,11 +303,11 @@ function Swipe(container, options) {
           );
         } else if (continuous_end) {
           if (!index && delta.x > 0) {
-            delta.x = 0;
+            delta.x = delta.x / (Math.abs(delta.x) / width + 1);
 
-            // translate(index - 1, delta.x + slidePos[index - 1], 0);
-            // translate(index, delta.x + slidePos[index], 0);
-            // translate(index + 1, delta.x + slidePos[index + 1], 0);
+            translate(index - 1, delta.x + slidePos[index - 1], 0);
+            translate(index, delta.x + slidePos[index], 0);
+            translate(index + 1, delta.x + slidePos[index + 1], 0);
           } else {
             translate(
               circle(index - 1),
@@ -394,7 +394,7 @@ function Swipe(container, options) {
 
           options.callback && options.callback(index, slides[index]);
         } else {
-          if (continuous) {
+          if (continuous || continuous_end) {
             move(circle(index - 1), -width, speed);
             move(index, 0, speed);
             move(circle(index + 1), width, speed);
