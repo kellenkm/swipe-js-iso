@@ -354,7 +354,10 @@ function Swipe(container, options) {
         (!index && delta.x > 0) || // if first slide and slide amt is greater than 0
         (index == slides.length - 1 && delta.x < 0); // or if last slide and slide amt is less than 0
 
-      if (continuous || continuous_end) isPastBounds = false;
+      if (continuous) isPastBounds = false;
+      else if (continuous_end) {
+        isPastBounds = !index && delta.x > 0;
+      }
 
       // determine direction of swipe (true:right, false:left)
       var direction = delta.x < 0;
