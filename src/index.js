@@ -303,15 +303,11 @@ function Swipe(container, options) {
           );
         } else if (continuous_end) {
           if (!index && delta.x > 0) {
-            delta.x =
-              delta.x /
-              (!index && delta.x > 0 // if first slide and sliding left
-                ? Math.abs(delta.x) / width + 1 // determine resistance level
-                : 1); // no resistance if false
+            delta.x = 0;
 
-            translate(index - 1, delta.x + slidePos[index - 1], 0);
-            translate(index, delta.x + slidePos[index], 0);
-            translate(index + 1, delta.x + slidePos[index + 1], 0);
+            // translate(index - 1, delta.x + slidePos[index - 1], 0);
+            // translate(index, delta.x + slidePos[index], 0);
+            // translate(index + 1, delta.x + slidePos[index + 1], 0);
           } else {
             translate(
               circle(index - 1),
