@@ -302,6 +302,7 @@ function Swipe(container, options) {
             0
           );
         } else if (continuous_end) {
+          console.log('_continuous_end');
           delta.x =
             delta.x /
             (!index && delta.x > 0 // if first slide and sliding left
