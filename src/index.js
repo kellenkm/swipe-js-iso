@@ -194,6 +194,8 @@ function Swipe(container, options) {
   var interval;
 
   function begin() {
+    alert('test');
+
     clearTimeout(interval);
     interval = setTimeout(next, delay);
   }
@@ -301,21 +303,24 @@ function Swipe(container, options) {
             delta.x + slidePos[circle(index + 1)],
             0
           );
-          // } else if (continuous_end) {
+        } else if (continuous_end) {
+          alert('continuous_end');
 
-          //   delta.x = delta.x / (!index && delta.x > 0 ? Math.abs(delta.x) / width + 1 : 1);
+          delta.x =
+            delta.x /
+            (!index && delta.x > 0 ? Math.abs(delta.x) / width + 1 : 1);
 
-          //   translate(
-          //     circle(index - 1),
-          //     delta.x + slidePos[circle(index - 1)],
-          //     0
-          //   );
-          //   translate(index, delta.x + slidePos[index], 0);
-          //   translate(
-          //     circle(index + 1),
-          //     delta.x + slidePos[circle(index + 1)],
-          //     0
-          //   );
+          translate(
+            circle(index - 1),
+            delta.x + slidePos[circle(index - 1)],
+            0
+          );
+          translate(index, delta.x + slidePos[index], 0);
+          translate(
+            circle(index + 1),
+            delta.x + slidePos[circle(index + 1)],
+            0
+          );
         } else {
           delta.x =
             delta.x /
@@ -360,7 +365,7 @@ function Swipe(container, options) {
       if (!isScrolling) {
         if (isValidSlide && !isPastBounds) {
           if (direction) {
-            if (continuous) {
+            if (continuous || continuous_end) {
               // we need to get the next in this direction in place
 
               move(circle(index - 1), -width, 0);
