@@ -308,6 +308,8 @@ function Swipe(container, options) {
             delta.x /
             (!index && delta.x > 0 ? Math.abs(delta.x) / width + 1 : 1);
 
+          console.log(delta.x);
+
           translate(
             circle(index - 1),
             delta.x + slidePos[circle(index - 1)],
