@@ -304,9 +304,7 @@ function Swipe(container, options) {
         } else if (continuous_end) {
           console.log('continuous_end', index);
 
-          delta.x =
-            delta.x /
-            (!index && delta.x > 0 ? Math.abs(delta.x) / width + 1 : 1);
+          delta.x = !index && delta.x > 0 ? 0 : delta.x;
 
           console.log(delta.x);
 
