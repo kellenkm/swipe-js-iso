@@ -138,6 +138,8 @@ function Swipe(container, options) {
   var speed = options.speed || 300;
   var continuous = (options.continuous =
     options.continuous !== undefined ? options.continuous : true);
+  var no_back = (options.no_back =
+    options.no_back !== undefined ? options.no_back : false);
   var continuous_end = (options.continuous_end =
     options.continuous_end !== undefined ? options.continuous_end : false);
 
@@ -185,6 +187,7 @@ function Swipe(container, options) {
   }
 
   function prev() {
+    if(no_back) return;
     if (continuous) slide(index - 1);
     else if (index) slide(index - 1);
   }
@@ -410,6 +413,7 @@ function Swipe(container, options) {
           console.log('continuous_end', index);
 
           delta.x = !index && delta.x > 0 ? 0 : delta.x;
+          if(no_back) delta.x = delta.x > 0 ? 0 : delta.x;
 
           console.log(delta.x);
 
@@ -459,6 +463,7 @@ function Swipe(container, options) {
       if (continuous) isPastBounds = false;
       else if (continuous_end) {
         isPastBounds = !index && delta.x > 0;
+        if(no_back) isPastBounds = delta.x > 0;
       }
 
       // determine direction of swipe (true:right, false:left)
